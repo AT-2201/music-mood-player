@@ -1,0 +1,34 @@
+// Prisma schema using SQLite (development friendly)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Track {
+  id     String @id
+  title  String
+  artist String
+  mood   String
+  score  Int    @default(0)
+  feedback Feedback[]
+}
+
+model Feedback {
+  id      Int    @id @default(autoincrement())
+  userId  String
+  trackId String
+  value   Int
+  createdAt DateTime @default(now())
+  track   Track  @relation(fields: [trackId], references: [id])
+}
+
+model MoodHistory {
+  id      Int    @id @default(autoincrement())
+  userId  String
+  mood    String
+  createdAt DateTime @default(now())
+}
