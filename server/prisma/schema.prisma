@@ -12,6 +12,9 @@ model Track {
   id     String @id
   title  String
   artist String
+  albumArt String?
+  spotifyUrl String?
+  previewUrl String?
   mood   String
   score  Int    @default(0)
   feedback Feedback[]

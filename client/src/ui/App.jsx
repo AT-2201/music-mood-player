@@ -76,11 +76,23 @@ export default function App() {
       {tracks.length > 0 && (
         <div>
           <h2>Playlist for "{mood}"</h2>
-          <ul>
+          <ul style={{ listStyle: 'none', padding: 0, display: 'grid', gap: 12 }}>
             {tracks.map(t => (
-              <li key={t.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #ddd' }}>
+              <li key={t.id} style={{ display: 'grid', gridTemplateColumns: 'auto 1fr auto', alignItems: 'center', gap:12, padding: '8px 0', borderBottom: '1px solid #ddd' }}>
+                {t.albumArt ? (
+                  <img src={t.albumArt} alt={`${t.title} album art`} style={{ width: 64, height: 64, objectFit: 'cover', borderRadius: 4 }} />
+                ) : <div style={{ width: 64, height: 64, background: '#f3f3f3', borderRadius: 4 }} />}
                 <div>
-                  <strong>{t.title}</strong> — {t.artist} {typeof t.score === 'number' ? `(score ${t.score})` : ''}
+                  <div style={{ fontWeight: 700 }}>
+                    {t.spotifyUrl ? <a href={t.spotifyUrl} target="_blank" rel="noreferrer">{t.title}</a> : t.title}
+                  </div>
+                  <div style={{ color: '#555' }}>{t.artist}</div>
+                  {t.previewUrl && (
+                    <audio controls src={t.previewUrl} style={{ marginTop: 6, maxWidth: '100%' }}>
+                      Your browser does not support the audio element.
+                    </audio>
+                  )}
+                  {typeof t.score === 'number' ? <div style={{ fontSize: 12, color: '#666' }}>score {t.score}</div> : null}
                 </div>
                 <div>
                   <button onClick={() => sendFeedback(t.id, 1)} style={{ marginRight: 8 }}>👍</button>

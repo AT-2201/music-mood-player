@@ -1,0 +1,3 @@
+ALTER TABLE "Track" ADD COLUMN "albumArt" TEXT;
+ALTER TABLE "Track" ADD COLUMN "previewUrl" TEXT;
+ALTER TABLE "Track" ADD COLUMN "spotifyUrl" TEXT;
